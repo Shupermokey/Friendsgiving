@@ -1,32 +1,27 @@
 import { useState } from "react";
 import { useProvider } from "../contexts/GroupProvider";
 import { Person } from "../Types";
+import { isEmailValid } from "../utils";
 
 export const Form = () => {
   const { groupMembers, setGroupMembers } = useProvider();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [isValid, setIsValid] = useState(false);
 
 
+  
 
-  // function checkIfValid(checkEmail:string) {
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  //   setIsValid(emailRegex.test(checkEmail));
-  //   console.log(isValid);
-  // }
 
-  function addPerson(name: string, email : string) {
-    // checkIfValid(email);
-      // if(name !== null && isValid === true){
+  function addPerson(name: string, emails : string) {
+       if(name.length > 0 && isEmailValid(emails)){
         const person: Person = {
           name,
-          email
+          email: emails
         }
         const groupMembersClone = groupMembers.slice()
         groupMembersClone.push(person)
         setGroupMembers(groupMembersClone);
-      // }
+       }
 
   }
 
@@ -38,12 +33,9 @@ export const Form = () => {
   };
 
   const submitName = () => {
-
       addPerson(name, email);
       setName("");
       setEmail("");
-
-    
   };
 
   return (

@@ -1,3 +1,4 @@
+import { Person } from "../Types";
 import { useProvider } from "../contexts/GroupProvider";
 
 export const Group = () => {
@@ -5,8 +6,33 @@ export const Group = () => {
   const {groupMembers} = useProvider();
 
 
-  const sendEmails = () => {
+  const sendEmails = async (input:string) => {
+    console.log(input);
+    const emailData = {
+      to: input,
+      subject: 'Friendsgiving',
+      text: 'Click the link to reveal your friend',
+    };
 
+    try {
+      const response = await fetch('http://localhost:3001/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emailData),
+      });
+  
+      if (response.ok) {
+        console.log('Email sent successfully');
+      } else {
+        console.error('Failed to send email');
+      }
+    } 
+    
+    catch (error) {
+      console.error('Error sending email:', error);
+    }
   }
 
   return(
@@ -20,7 +46,7 @@ export const Group = () => {
           </div>
         ))
       }
-      <button onClick={sendEmails}>Send</button>
+      <button onClick={() => groupMembers.forEach((person) => {sendEmails(person.email)})}>Send</button>
     </div>
   )
   

@@ -1,10 +1,12 @@
 import express from 'express';
 import { createTransport } from 'nodemailer';
 import pkg from 'body-parser';
+import cors from 'cors'
 const { json } = pkg;
 
 const app = express();
 
+app.use(cors())
 app.use(json());
 
 app.post('/send-email', (req, res) => {
@@ -15,16 +17,16 @@ app.post('/send-email', (req, res) => {
     service: 'gmail',
     auth: {
       user: 'teemsnipers@gmail.com',
-      pass: '',
+      pass: 'yrkj aoad hued jsgk ',
     },
   });
 
   // Define email options
   const mailOptions = {
     from: 'teemsnipers@gmail.com',
-    to: 'teemsnipers@gmail.com',
-    subject:"Test",
-    text: "Hello",
+    to: to,
+    subject:subject,
+    text: text,
   };
 
   // Send email
