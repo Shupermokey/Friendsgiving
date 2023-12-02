@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import GroupProvider from './contexts/GroupProvider.tsx'
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <GroupProvider>
